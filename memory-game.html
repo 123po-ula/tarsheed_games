@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ذاكرة الترشيد</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap">
+<style>
+:root{--bg:#f6f0ff;--card:#fff;--tx:#2a1a4a;--mu:#6b5a8a;--bd:#ddd0f2;--a:#7b3fe4;--b:#ff8a3d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1230;--card:#2a1f4a;--tx:#f1eaff;--mu:#b6a8d6;--bd:#43366b;--a:#b48cff;--b:#ffa566}}
+:root[data-theme="dark"]{--bg:#1a1230;--card:#2a1f4a;--tx:#f1eaff;--mu:#b6a8d6;--bd:#43366b;--a:#b48cff;--b:#ffa566}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Cairo,Tahoma,"Segoe UI",system-ui,sans-serif;line-height:1.7}
+main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:2rem;font-weight:800;margin:6px 0 0}
+.sub{color:var(--mu);margin:4px 0 8px}
+.cnt{font-weight:700;color:var(--a);margin:4px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cd{aspect-ratio:1;min-height:96px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px;border:2px solid var(--bd);border-radius:16px;font:inherit;font-size:1.8rem;color:var(--tx);background:repeating-linear-gradient(45deg,var(--a),var(--a) 8px,var(--b) 8px,var(--b) 16px);cursor:pointer}
+.cd.up{background:var(--card)}
+.cd.ok{border-color:#1a9a5e;background:var(--card)}
+.cd span{font-size:1.9rem;line-height:1}
+.cd small{font-size:.8rem;font-weight:700;line-height:1.3}
+.cd:disabled{cursor:default}
+button:focus-visible{outline:3px solid var(--a);outline-offset:2px}
+.f{background:var(--card);border:1px solid var(--bd);border-inline-start:6px solid #1a9a5e;border-radius:14px;padding:10px 14px;margin-top:10px}
+.f p{margin:2px 0}
+.win{background:#1a9a5e;color:#fff;border-radius:16px;padding:14px;margin-top:14px;font-weight:700}
+.win button{margin-top:8px;padding:8px 18px;border:0;border-radius:99px;background:#ffd24a;color:#2a1a4a;font:inherit;font-weight:800;cursor:pointer}
+</style>
+</head>
+<body>
+<main>
+<h1>🧠 ذاكرة الترشيد</h1>
+<p class="sub">اقلب كارتين ورا بعض. لو كانوا مشكلة وحلّها هيثبتوا وتاخد معلومة.</p>
+<p class="cnt" id="c"></p>
+<div class="grid" id="g"></div>
+<div id="f"></div>
+</main>
+<script>
+const P=[
+["🚰","حنفية بتنقّط","🔧","نبلّغ الإدارة","التنقيط المستمر بيضيّع لترات كتير كل يوم، ومئات اللترات في شهور."],
+["💡","فصل فاضي ومنوّر","🔘","نطفي الأنوار","أي لمبة مولّعة من غير حد بتستهلك كهرباء بلا فايدة."],
+["🔌","شاحن في الفيشة","✂️","نفصله","الأجهزة في وضع الاستعداد بتفضل تسحب كهرباء."],
+["🚽","سيفون بيسرّب","🛠️","يتصلّح فورًا","تسريب السيفون ممكن يضيّع مئات اللترات في اليوم."],
+["❄️","تكييف على ١٦ درجة","🌡️","٢٤ لـ٢٦ درجة","الدرجة المعتدلة بتوفر كهرباء."],
+["🧼","حنفية مفتوحة وقت الصابون","🤚","نقفلها وقت الفرك","الحنفية المفتوحة بتصرف لترات كل دقيقة من غير فايدة."]];
+const G=document.getElementById("g"),C=document.getElementById("c"),F=document.getElementById("f");
+let K,op,got,mv,lk;
+function init(){K=[];P.forEach((p,i)=>{K.push({p:i,e:p[0],t:p[1],s:0});K.push({p:i,e:p[2],t:p[3],s:0})});K.sort(()=>Math.random()-.5);op=[];got=[];mv=0;lk=false;draw()}
+function draw(){
+ G.innerHTML=K.map((k,i)=>`<button class="cd${k.s==2?' ok':k.s?' up':''}" ${k.s?'disabled':''} onclick="fl(${i})">${k.s?`<span>${k.e}</span><small>${k.t}</small>`:'❓'}</button>`).join("");
+ C.textContent=`المحاولات: ${mv} · اتلاقى ${got.length} من ${P.length}`;
+ F.innerHTML=got.map(i=>`<div class="f"><b>${P[i][0]} ${P[i][1]} ← ${P[i][2]} ${P[i][3]}</b><p>${P[i][4]}</p></div>`).join("")+(got.length==P.length?`<div class="win">🏆 برافو! خلّصت اللعبة في ${mv} محاولة.<br><button onclick="init()">العب تاني</button></div>`:"")}
+function fl(i){if(lk)return;K[i].s=1;op.push(i);if(op.length<2){draw();return}
+ mv++;const[a,b]=op;op=[];
+ if(K[a].p===K[b].p){K[a].s=K[b].s=2;got.push(K[a].p);draw()}
+ else{lk=true;draw();setTimeout(()=>{K[a].s=K[b].s=0;lk=false;draw()},900)}}
+init();
+</script>
+</body>
+</html>

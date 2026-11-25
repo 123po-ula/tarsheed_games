@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>يوم في المدرسة</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap">
+<style>
+:root{--bg:#fff1e6;--card:#fff;--tx:#3b1f12;--mu:#7a5a48;--bd:#f0d5c2;--a:#ef6c2f;--b:#2a9d8f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#25140c;--card:#3a2216;--tx:#ffeee0;--mu:#d1b09a;--bd:#5a3a28;--a:#ff9a60;--b:#4cc9b8}}
+:root[data-theme="dark"]{--bg:#25140c;--card:#3a2216;--tx:#ffeee0;--mu:#d1b09a;--bd:#5a3a28;--a:#ff9a60;--b:#4cc9b8}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Cairo,Tahoma,"Segoe UI",system-ui,sans-serif;line-height:1.7}
+main{max-width:680px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:2rem;font-weight:800;margin:6px 0 0}
+h2{font-weight:800;margin:6px 0}
+.sub{color:var(--mu);margin:4px 0 12px}
+.ms{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.ms small{font-weight:700}
+.br{height:12px;border-radius:99px;background:var(--bd);overflow:hidden}
+.br i{display:block;height:100%;transition:width .5s}
+.bw{background:#0b84c6}
+.be{background:#f2b705}
+.box{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:18px}
+.tag{display:inline-block;font-size:.85rem;color:var(--mu);border:1px solid var(--bd);border-radius:99px;padding:0 12px}
+.q{font-size:1.15rem;font-weight:600;margin:4px 0 10px}
+.opt{display:block;width:100%;text-align:start;padding:14px 16px;margin:10px 0;border:2px solid var(--bd);border-radius:14px;background:var(--bg);color:var(--tx);font:inherit;font-size:1.05rem;cursor:pointer}
+.opt:hover{border-color:var(--a)}
+.fb{padding:14px 16px;border-radius:14px;background:var(--bg);border-inline-start:8px solid #1a9a5e}
+.fb.w{border-inline-start-color:#d9482f}
+.fb p{margin:6px 0 10px}
+.nx{padding:10px 22px;border:0;border-radius:99px;background:var(--a);color:#fff;font:inherit;font-weight:800;cursor:pointer}
+button:focus-visible{outline:3px solid var(--b);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>🏫 يوم في المدرسة</h1>
+<p class="sub">عدّي يوم دراسي كامل واختار تتصرف إزاي في كل موقف. حافظ على عدّاد الميه والكهرباء، وبعد كل اختيار هتاخد معلومة.</p>
+<div id="m"></div>
+</main>
+<script>
+const S=[
+{i:"🌅",t:"الصباح",q:"وصلت الفصل بدري، والشمس داخلة من الشباك وكل اللمبات مطفية. تعمل إيه؟",c:[
+["أولّع كل الأنوار",0,-15,"الإضاءة الطبيعية بتكفي أغلب النهار، وتشغيل الأنوار من غير لازمة بيستهلك كهرباء."],
+["أفتح الستاير وأسيب الأنوار مطفية",0,15,"الإضاءة الطبيعية مجانية، وبتوفر كهرباء الصبح."],
+["أشغّل التكييف على ١٦ درجة",0,-20,"الدرجة المنخفضة جدًا بتستهلك كهرباء أكتر. المعتدلة ٢٤ لـ٢٦ كفاية."]]},
+{i:"🚻",t:"الحمام",q:"حنفية الحمام بتنقّط. تعمل إيه؟",c:[
+["أعدّي وأسيبها",-15,0,"التنقيط المستمر بيضيّع لترات كتير كل يوم."],
+["أقفلها كويس وأبلّغ المشرف",20,0,"القفل والبلاغ بيوقفوا الإهدار ويتصلّح التسريب."],
+["أفتحها أكتر عشان تبطّل تنقّط",-20,0,"فتح الحنفية أكتر بيصرف ميه أكتر ومش بيحل المشكلة."]]},
+{i:"🧼",t:"غسل الإيدين",q:"بتغسل إيدك قبل الفسحة. تعمل إيه؟",c:[
+["أقفل الحنفية وأنا بفرك بالصابون",15,0,"قفل الحنفية وقت الفرك بيوفر ميه من غير ما نقلل النضافة."],
+["أسيبها مفتوحة",-15,0,"الحنفية المفتوحة بتصرف لترات كل دقيقة."]]},
+{i:"⚽",t:"حصة الألعاب",q:"الفصل هيفضل فاضي طول حصة الألعاب. تعمل إيه؟",c:[
+["نطفي الأنوار والمراوح ونقفل الباب",0,15,"المكان الفاضي مش محتاج إضاءة ولا مراوح."],
+["نسيب كل حاجة شغالة، هنرجع",0,-15,"أي حاجة شغالة من غير حد بتستهلك كهرباء حتى لو هنرجع بعد شوية."]]},
+{i:"🧯",t:"الطرقة",q:"لقيت مخرج ميه الحريق في الطرقة بيسرّب. تعمل إيه؟",c:[
+["أبلّغ الإدارة فورًا",20,0,"ميه الحريق مخصصة للطوارئ، والبلاغ السريع بيحمي المدرسة ويوفر الميه."],
+["أسيبه، مش شغلي",-20,0,"التسريب بيستمر ويضيّع ميه كتير مع الوقت."],
+["أحاول أصلحه بنفسي",-5,0,"الأفضل نسيب الإصلاح للمختصين ونبلّغ بس."]]},
+{i:"🔌",t:"نهاية اليوم",q:"الحصة الأخيرة خلصت وهتروح. تعمل إيه؟",c:[
+["أطفي الأنوار والمراوح وأقفل الشبابيك",0,20,"الفصل الفاضي ملوش لازمة فيه أنوار ولا مراوح."],
+["أجري وأسيب كل حاجة",0,-20,"اللي بيتنسى مولّع بيستهلك كهرباء طول الليل."],
+["أطفي الأنوار بس",0,8,"خطوة كويسة، ولسه المراوح والأجهزة."]]}];
+const M=document.getElementById("m");
+let i,w,e,pk,od;
+const cl=x=>Math.max(0,Math.min(100,x));
+const d=(x,s)=>x?`${s} ${x>0?'+':'−'}${Math.abs(x)} `:'';
+function sh(){od=S[i].c.map((_,k)=>k).sort(()=>Math.random()-.5)}
+function init(){i=0;w=50;e=50;pk=null;sh();draw()}
+function bars(){return `<div class="ms"><div><small>💧 الميه ${w}%</small><div class="br"><i class="bw" style="width:${w}%"></i></div></div><div><small>⚡ الكهرباء ${e}%</small><div class="br"><i class="be" style="width:${e}%"></i></div></div></div>`}
+function draw(){
+ if(i>=S.length){const g=w>=75&&e>=75,m=w>=50&&e>=50;
+  M.innerHTML=bars()+`<div class="box"><h2>${g?'🏆 بطل الترشيد!':m?'👏 كويس جدًا':'💪 حاول تاني'}</h2><p>${g?'اليوم خلص وإنت وفّرت ميه وكهرباء للمدرسة.':m?'قراراتك كويسة، وفيه حاجات تقدر تتحسن.':'فيه إهدار كتير اليوم ده. جرّب تختار اختيارات تانية.'}</p><button class="nx" onclick="init()">ابدأ اليوم من أوله</button></div>`;return}
+ const s=S[i];
+ let b;
+ if(pk===null)b=od.map(k=>`<button class="opt" onclick="pick(${k})">${s.c[k][0]}</button>`).join("");
+ else{const c=s.c[pk],g=c[1]+c[2]>0;
+  b=`<div class="fb ${g?'':'w'}"><b>${g?'👍 اختيار كويس':'⚠️ اختيار ضعيف'}</b> <span>${d(c[1],'💧')}${d(c[2],'⚡')}</span><p>${c[3]}</p><button class="nx" onclick="nx()">${i<S.length-1?'المشهد اللي بعده ←':'شوف النتيجة ←'}</button></div>`}
+ M.innerHTML=bars()+`<div class="box"><span class="tag">مشهد ${i+1} من ${S.length}</span><h2>${s.i} ${s.t}</h2><p class="q">${s.q}</p>${b}</div>`}
+function pick(k){const c=S[i].c[k];pk=k;w=cl(w+c[1]);e=cl(e+c[2]);draw()}
+function nx(){i++;pk=null;if(i<S.length)sh();draw()}
+init();
+</script>
+</body>
+</html>
